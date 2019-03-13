@@ -5,7 +5,7 @@ venv/
 .idea/
 
 # python auto generated DIR
-./__pycahe__/
+__pycache__/
 
 # DB
 *.sqlite3
