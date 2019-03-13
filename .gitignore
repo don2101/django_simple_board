@@ -1,0 +1,11 @@
+# virtual env
+venv/
+
+# .idea
+.idea/
+
+# python auto generated DIR
+./__pycahe__/
+
+# DB
+*.sqlite3
