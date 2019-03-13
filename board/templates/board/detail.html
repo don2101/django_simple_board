@@ -1,0 +1,30 @@
+{% extends 'board/base.html' %}
+
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+
+{% block button %}
+    <button>
+        <a href="{% url 'board:article_list' %}">To Article List</a>
+    </button>
+{% endblock %}
+
+{% block body %}
+    <h2>{{ article.title }}</h2>
+    <p>{{ article.content }}</p>
+
+    <div>
+        <form action="{% url 'board:delete_article' article.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" onclick="return confirm('삭제하시겠습니까?')">delete</button>
+        </form>
+    </div>
+
+    <div>
+        <form action="{% url 'board:update_article' article.id %}" method="GET">
+            {% csrf_token %}
+            <button type="submit">update</button>
+        </form>
+    </div>
+{% endblock %}
