@@ -1,0 +1,21 @@
+<div id="commentUI">
+    <div id="commentForm">
+        <form action="{% url 'board:create_comment' article.id %}" method="POST">
+            {% csrf_token %}
+            <label for="comment">comment</label>
+            <input type="text" id="comment" name="content" placeholder="Hit Enter" autofocus>
+        </form>
+    </div>
+
+    <div id="commentList">
+        <ul>
+            {% for comment in comments %}
+                <li>{{ comment.content }}</li>
+                <form action="{% url 'board:delete_comment' article.id comment.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('삭제하시겠습니까?')">delete</button>
+                </form>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

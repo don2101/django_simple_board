@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Article, Comment
+from IPython import embed
 
 
 # from IPython import embed
@@ -16,8 +17,10 @@ def article_list(request):
 def article_detail(request, article_id):
     context = {}
     article = get_object_or_404(Article, id=article_id)
+    comments = article.comment_set.all()
 
     context['article'] = article
+    context['comments'] = comments
 
     return render(request, 'board/detail.html', context=context)
 
@@ -59,3 +62,25 @@ def update_article(request, article_id):
         article.save()
 
         return redirect('board:article_detail', article_id)
+
+
+def create_comment(request, article_id):
+    article = get_object_or_404(Article, id=article_id)
+
+    if request.method == 'POST':
+        comment = Comment()
+        comment.content = request.POST.get('content')
+        comment.article = article
+        #comment.article_id = article.id 또한 가능
+        comment.save()
+
+    return redirect('board:article_detail', article.id)
+
+
+def delete_comment(request, article_id, comment_id):
+    article = get_object_or_404(Article, id=article_id)
+    comment = get_object_or_404(Comment, id=comment_id)
+    if request.method == 'POST':
+        comment.delete()
+
+    return redirect('board:article_detail', article.id)
