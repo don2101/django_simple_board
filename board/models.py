@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Article(models.Model):
     title = models.TextField(default='')
@@ -9,9 +10,10 @@ class Article(models.Model):
     def __str__(self):
         return f'{self.id}: {self.title[:20]}'
 
+
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE )
     content = models.TextField(default='')
 
     def __str__(self):
-        return f'{self.article.title}: {self.content[20]}'
+        return f'{self.article.title}: {self.content[:20]}'

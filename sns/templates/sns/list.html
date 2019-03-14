@@ -1,0 +1,27 @@
+{% extends 'sns/base.html' %}
+
+{% block is_list %}active{% endblock %}
+
+{% block body %}
+    {% include 'sns/_forms.html' %}
+
+    {% if postings %}
+        <section class="card-columns mt-3">
+            {% for posting in postings %}
+                <article class="card mb-2">
+                    <a href="{% url 'sns:posting_detail' posting.id %}">
+                        {% if posting.image %}
+                            <img src="{{ posting.image_thumbnail.url }}"
+                                 alt="{{ posting.image }}"
+                                 class="card-img-top image-fluid">
+                        {% else %}
+                            <img src="http://picsum.photos/32{{ forloop.counter }}/580/?random"
+                                 alt="random-image-{{ forloop.counter }}"
+                                 class="card-img-top image-fluid">
+                        {% endif %}
+                    </a>
+                </article>
+            {% endfor %}
+        </section>
+    {% endif %}
+{% endblock %}
